@@ -33,7 +33,15 @@ else:
     if st.session_state.step == 1:
         if st.button("Generate Test Cases"):
             with st.spinner("Running `generate_test_cases.py`..."):
-                subprocess.run(["python", "generate_test_cases.py"], check=True)
+                import sys
+
+try:
+    subprocess.run([sys.executable, "generate_test_cases.py"], check=True)
+except subprocess.CalledProcessError as e:
+    st.error(f"Subprocess failed with exit code {e.returncode}")
+    st.error(f"Command: {e.cmd}")
+    st.error(e.output)
+
             st.session_state.step = 2
             st.rerun()
 
