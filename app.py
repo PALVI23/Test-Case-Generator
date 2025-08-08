@@ -93,10 +93,17 @@ if st.session_state.step >= 3:
 
         if st.button("Generate Synthetic Data"):
             with st.spinner("Running `create_synthetic_data.py`..."):
-                subprocess.run([
-                    "python", "create_synthetic_data.py",
-                    str(num_records), str(min_invalid_per_row), str(min_invalid_per_col)
-                ], check=True)
+                try:
+                    result = subprocess.run([
+                        sys.executable, "create_synthetic_data.py",
+                        str(num_records), str(min_invalid_per_row), str(min_invalid_per_col)
+                    ], check=True, capture_output=True, text=True)
+                    st.success(result.stdout)
+                except subprocess.CalledProcessError as e:
+                    st.error(f"Subprocess failed with exit code {e.returncode}")
+                    st.error(f"Command: {e.cmd}")
+                    st.error(f"Stdout: {e.stdout}")
+                    st.error(f"Stderr: {e.stderr}")
             st.session_state.step = 4
             st.rerun()
 
