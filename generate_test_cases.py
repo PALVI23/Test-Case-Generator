@@ -108,7 +108,7 @@ def generate_formatted_dictionary(input_path, output_path):
 
 if __name__ == "__main__":
     # Define the input and output file paths
-    input_data_dictionary = 'data_dictionary_try.xlsx'
+    input_data_dictionary = 'data_dictionary_types/data_dictionary_try1.xlsx'
     output_formatted_dictionary = 'formatted_dictionary.csv'
     
     # Run the process
