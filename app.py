@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import subprocess
 import os
+import sys
 
 st.set_page_config(layout="wide")
 st.title("GenAI Test Case Generator")
@@ -33,16 +34,14 @@ else:
     if st.session_state.step == 1:
         if st.button("Generate Test Cases"):
             with st.spinner("Running `generate_test_cases.py`..."):
-                import sys
+                try:
+                    subprocess.run([sys.executable, "generate_test_cases.py"], check=True)
+                except subprocess.CalledProcessError as e:
+                    st.error(f"Subprocess failed with exit code {e.returncode}")
+                    st.error(f"Command: {e.cmd}")
+                    st.error(e.output)
 
-try:
-    subprocess.run([sys.executable, "generate_test_cases.py"], check=True)
-except subprocess.CalledProcessError as e:
-    st.error(f"Subprocess failed with exit code {e.returncode}")
-    st.error(f"Command: {e.cmd}")
-    st.error(e.output)
-
-            st.session_state.step = 2
+                st.session_state.step = 2
             st.rerun()
 
 # --- Step 2: Review and Refine Formatted Dictionary ---
