@@ -63,7 +63,7 @@ if st.session_state.step >= 2:
                     if feedback_text:
                         with st.spinner("Incorporating feedback..."):
                             subprocess.run([
-                                "python", "incorporate_feedback.py",
+                                sys.executable, "incorporate_feedback.py",
                                 formatted_dict_file, feedback_text, formatted_dict_file
                             ], check=True)
                     st.rerun()
