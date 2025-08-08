@@ -113,7 +113,7 @@ if st.session_state.step >= 4:
     if st.session_state.step == 4:
         if st.button("Run Validation"):
             with st.spinner("Running `validate.py`..."):
-                subprocess.run(["python", "validate.py"], check=True)
+                subprocess.run([sys.executable, "validate.py"], check=True)
             st.session_state.step = 5
             st.rerun()
 

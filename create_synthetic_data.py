@@ -99,6 +99,20 @@ if __name__ == "__main__":
     # Define the input and output file paths
     formatted_dictionary_file = 'formatted_dictionary.csv'
     output_test_cases_file = 'input_data_try.xlsx'
+
+    # Parse command-line arguments
+    if len(sys.argv) > 3:
+        num_records_arg = int(sys.argv[1])
+        min_invalid_per_row_arg = int(sys.argv[2])
+        min_invalid_per_col_arg = int(sys.argv[3])
+    else:
+        # Default values if not provided (should not happen when called from app.py)
+        num_records_arg = 50
+        min_invalid_per_row_arg = 4
+        min_invalid_per_col_arg = 10
     
-    # Run the data generation process
-    generate_synthetic_data(formatted_dictionary_file, output_test_cases_file)
+    # Run the data generation process with parsed arguments
+    generate_synthetic_data(formatted_dictionary_file, output_test_cases_file, 
+                            num_records=num_records_arg, 
+                            min_invalid_per_row=min_invalid_per_row_arg, 
+                            min_invalid_per_col=min_invalid_per_col_arg)
